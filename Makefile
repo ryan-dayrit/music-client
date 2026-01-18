@@ -1,27 +1,22 @@
 PYTHON = python3
 GEN_FOLDER = gen/pb
-PROTO_FOLDER = proto/music
+PROTO_FOLDER = proto
+MODULE = music.client
 
-APP_SOURCE = src/main.py
-TEST_SOURCE = tests/
-
-.PHONY: all run install test clean
+.PHONY: all run install clean
 
 all: run
 
-run:
-	$(PYTHON) $(APP_SOURCE)
+run: gen
+	$(PYTHON) -m $(MODULE)
 
 install:
 	$(PYTHON) -m pip install -r requirements.txt
 
-test:
-	$(PYTHON) -m pytest $(TEST_SOURCE)
-
 clean:
 	find . -type f -name "*.pyc" -delete
 	find . -type d -name "__pycache__" -delete
-	rm -rf ${GEN_FOLDER}
+	rm -rf gen
 
 gen: clean
 	mkdir -p ${GEN_FOLDER}
