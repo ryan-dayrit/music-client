@@ -1,10 +1,7 @@
-import sys
+from music.client.app import App
 
-def main(args=None):
-    if args is None:
-        args = sys.argv[1:]
-    
-    print("Helo World")
+def main():
+    App().run()
 
 if __name__ == "__main__":
     main()

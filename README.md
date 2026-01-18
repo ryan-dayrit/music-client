@@ -13,6 +13,9 @@ practice Python application for calling gRPC service
   * https://medium.com/@jameskabbes/adding-main-py-to-your-python-package-ff0cba4b8f98
   * https://stackoverflow.com/questions/4042905/what-is-main-py
 
+# config 
+  * https://www.hackerearth.com/practice/notes/samarthbhargav/a-design-pattern-for-configuration-management-in-python/
+  
 # Protobuf and gRPC
   * https://www.pantsbuild.org/dev/docs/python/integrations/protobuf-and-grpc
   * https://grpc.io/docs/languages/python/basics/
