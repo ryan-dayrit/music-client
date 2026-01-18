@@ -15,6 +15,7 @@ class App(object):
 
         self._config = AppConfig(data)
 
-    def run(self):
+    def run(self, source):
         print(f"service_config.network: {self._config.service_config.network}")
-        print(f"database_config.: {self._config.database_config.db_name}")
+        print(f"database_config.db_name: {self._config.database_config.db_name}")
+        print(f"source: {source}")
