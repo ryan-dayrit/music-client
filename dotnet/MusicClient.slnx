@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="MusicClient.App/MusicClient.App.csproj" />
+  <Project Path="MusicClient.DAL/MusicClient.DAL.csproj" />
+</Solution>

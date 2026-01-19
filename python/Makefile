@@ -1,6 +1,6 @@
 PYTHON = python3
 GEN_FOLDER = .
-PROTO_FOLDER = proto
+PROTO_FOLDER = ../proto
 MODULE = music.client
 
 .PHONY: all run clean
