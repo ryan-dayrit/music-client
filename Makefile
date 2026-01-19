@@ -3,7 +3,7 @@ GEN_FOLDER = .
 PROTO_FOLDER = proto
 MODULE = music.client
 
-.PHONY: all run install clean
+.PHONY: all run clean
 
 all: run
 
@@ -12,9 +12,6 @@ run_db_fetch: gen
 
 run_svc_fetch: gen
 	$(PYTHON) -m $(MODULE) --source=service
-
-install:
-	$(PYTHON) -m pip install -r requirements.txt
 
 clean:
 	find . -type f -name "*.pyc" -delete
