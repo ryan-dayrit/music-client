@@ -5,5 +5,5 @@ class AbstractRepository(ABC):
         self._config = conf
 
     @abstractmethod
-    def get_album_list(self):
+    def get_albums(self):
         pass

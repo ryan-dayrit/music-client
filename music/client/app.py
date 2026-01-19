@@ -18,4 +18,5 @@ class App(object):
 
     def run(self, source):
         repository = get_repository(self._config, source)
-        repository.get_album_list()
+        for album in repository.get_albums():
+            print(album)           

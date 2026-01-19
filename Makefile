@@ -1,5 +1,5 @@
 PYTHON = python3
-GEN_FOLDER = gen/pb
+GEN_FOLDER = .
 PROTO_FOLDER = proto
 MODULE = music.client
 
@@ -7,8 +7,11 @@ MODULE = music.client
 
 all: run
 
-run: gen
-	$(PYTHON) -m $(MODULE)
+run_db_fetch: gen
+	$(PYTHON) -m $(MODULE) --source=database
+
+run_svc_fetch: gen
+	$(PYTHON) -m $(MODULE) --source=service
 
 install:
 	$(PYTHON) -m pip install -r requirements.txt
@@ -16,8 +19,10 @@ install:
 clean:
 	find . -type f -name "*.pyc" -delete
 	find . -type d -name "__pycache__" -delete
-	rm -rf gen
+	find . -type f -name "*_pb2.py" -delete
+	find . -type f -name "*_pb2.pyi" -delete
+	find . -type f -name "*_pb2_grpc.py" -delete
 
 gen: clean
 	mkdir -p ${GEN_FOLDER}
-	$(PYTHON) -m grpc_tools.protoc --proto_path=${PROTO_FOLDER} --python_out=${GEN_FOLDER} --pyi_out=${GEN_FOLDER} --grpc_python_out=${GEN_FOLDER} ${PROTO_FOLDER}/models.proto ${PROTO_FOLDER}/service.proto
+	$(PYTHON) -m grpc_tools.protoc --proto_path=${PROTO_FOLDER} --python_out=${GEN_FOLDER} --pyi_out=${GEN_FOLDER} --grpc_python_out=${GEN_FOLDER} ${PROTO_FOLDER}/service.proto ${PROTO_FOLDER}/models.proto

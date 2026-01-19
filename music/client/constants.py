@@ -16,3 +16,5 @@ SOURCE_SERVICE = "service"
 SOURCE_DATABASE = "database"
 
 DEFAULT_POSTGRESQL_PORT = "5432"
+
+QUERY_GET_ALBUMS = "SELECT id, title, artist, price FROM music.albums;"

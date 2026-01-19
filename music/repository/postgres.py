@@ -1,10 +1,13 @@
 import psycopg2
 
 from music.repository.abstract import AbstractRepository
-from music.client.constants import DEFAULT_POSTGRESQL_PORT
+from music.client.constants import (
+    DEFAULT_POSTGRESQL_PORT, 
+    QUERY_GET_ALBUMS
+)
 
 class PostgresRepository(AbstractRepository):
-    def get_album_list(self):
+    def get_albums(self):
         try:
             conn = psycopg2.connect(
                 database=self._config.db_name,
@@ -15,12 +18,8 @@ class PostgresRepository(AbstractRepository):
             )
         except psycopg2.DatabaseError as e:
             print(f"Error connecting to the database: {e}")
-            conn = None
+            return None
         
-        if conn:
-            cur = conn.cursor()
-        
-        cur.execute("SELECT id, title, artist, price FROM music.albums;")
-        records = cur.fetchall()
-        for row in records:
-            print(row)
+        cur = conn.cursor()
+        cur.execute(QUERY_GET_ALBUMS)
+        return cur.fetchall()
