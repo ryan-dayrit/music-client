@@ -1,5 +1,5 @@
 # music-client
-practice Python application for calling gRPC service 
+practice Python and C# dotnet client applications for calling gRPC service and querying a Postgres database
 
 # Go vs Python 
   * https://www.techtarget.com/searchitoperations/tip/Compare-Go-vs-Python-What-are-the-differences
