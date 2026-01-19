@@ -11,3 +11,6 @@ PROPERTY_NAME_DB_NAME = "db_name"
 PROPERTY_NAME_SSL_MODE = "ssl_mode"
 PROPERTY_NAME_SERVICE = "service"
 PROPERTY_NAME_DATABASE = "database"
+
+SOURCE_SERVICE = "service"
+SOURCE_DATABASE = "database"

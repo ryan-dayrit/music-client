@@ -1,7 +1,8 @@
 import yaml
 
 from music.client.config import AppConfig 
-from music.client.constants import CONFIG_FILE_PATH 
+from music.client.constants import CONFIG_FILE_PATH
+from music.repository.factory import get_repository
 
 class App(object):
     def __init__(self):
@@ -16,6 +17,5 @@ class App(object):
         self._config = AppConfig(data)
 
     def run(self, source):
-        print(f"service_config.network: {self._config.service_config.network}")
-        print(f"database_config.db_name: {self._config.database_config.db_name}")
-        print(f"source: {source}")
+        repository = get_repository(self._config, source)
+        repository.get_album_list()
