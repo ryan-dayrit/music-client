@@ -1,20 +1,21 @@
-﻿namespace MusicClient.DAL;
+﻿using Microsoft.Extensions.Configuration;
+
+namespace MusicClient.DAL;
 
 public class RepositoryFactory
 {
-    public static BaseRepository GetRepository(string source)
+    public static BaseRepository GetRepository(IConfiguration config)
     { 
         BaseRepository repository;
-        switch(source)
+        var source = config["Source"] ?? "service";
+        switch(source.ToLower())
         {
             case "database":
-                repository = new DatabaseRepository();
+                repository = new DatabaseRepository(config.GetSection("Database"));
                 break;
             case "service":
-                repository =  new ServiceRepository();
-                break;
             default:
-                repository = new ServiceRepository(); 
+                repository = new ServiceRepository(config.GetSection("Service")); 
                 break;
         }
         return repository;     

@@ -1,9 +1,15 @@
+using Microsoft.Extensions.Configuration;
+
 namespace MusicClient.DAL;
 
 public class ServiceRepository : BaseRepository
 {
-    public ServiceRepository() 
+    private IConfigurationSection _config;
+
+    public ServiceRepository(IConfigurationSection config)
     {
+        _config = config;
+        Console.WriteLine($"Network: {_config["Network"]}, Host: {_config["Host"]}, Port: {_config["Port"]}");
     }
 
     public override IEnumerable<Album> GetAlbums()

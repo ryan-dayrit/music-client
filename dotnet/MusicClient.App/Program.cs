@@ -8,12 +8,12 @@ namespace MusicClient.App
     {
         static void Main(string[] args)
         {
-            var builder = new ConfigurationBuilder();
-            builder.AddCommandLine(args);
-            var config = builder.Build();
+            var configBuilder = new ConfigurationBuilder();
+            configBuilder.AddCommandLine(args);
+            configBuilder.AddJsonFile("appsettings.json");
+            var config = configBuilder.Build();
 
-            string source = config["source"];
-            var repository = RepositoryFactory.GetRepository(source);
+            var repository = RepositoryFactory.GetRepository(config);
             var albums = repository.GetAlbums();
             foreach (Album album in albums)
             {

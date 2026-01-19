@@ -1,3 +1,13 @@
+# How to Run 
+  * `dotnet build` 
+  * `dotnet run --project ./MusicClient.App/MusicClient.App.csproj --source database`
+  * `dotnet run --project ./MusicClient.App/MusicClient.App.csproj --source service`
+
+# Usage 
+  * 2 values for the --source parameter 
+    * database for querying postgres database directly 
+    * service for calling the music-service gRPC service 
+
 # dotnet install 
   * https://learn.microsoft.com/en-us/dotnet/core/install/macos
 
@@ -36,3 +46,6 @@
 
 # string interpolation 
   * https://www.google.com/search?q=string+interpolation+c%23+dotnetcore
+
+# Accessing PostgreSQL
+  * https://www.npgsql.org/
