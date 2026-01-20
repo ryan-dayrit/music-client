@@ -1,4 +1,6 @@
 using Microsoft.Extensions.Configuration;
+using Grpc.Net.Client;
+using Service;
 
 namespace MusicClient.DAL;
 
@@ -9,15 +11,25 @@ public class ServiceRepository : BaseRepository
     public ServiceRepository(IConfigurationSection config)
     {
         _config = config;
-        Console.WriteLine($"Network: {_config["Network"]}, Host: {_config["Host"]}, Port: {_config["Port"]}");
     }
 
     public override IEnumerable<Album> GetAlbums()
     {
-        return new List<Album>
+        var channel = GrpcChannel.ForAddress($"{_config["Network"]}://{_config["Host"]}:{_config["Port"]}");
+        var client = new MusicService.MusicServiceClient(channel);
+
+        var response = client.GetAlbumList(new GetAlbumsRequest());
+
+        var result = new List<Album>();
+        foreach (Service.Album album in response.Albums)
         {
-            new Album(1, "Jeru", "Gerry Mulligan", 17.99),
-            new Album(2, "Sarah Vaughan", "Sarah Vaughan", 34.98)
-        };
+            result.Add(new Album(
+                album.Id,
+                album.Title,
+                album.Artist,
+                album.Price
+            ));
+        }
+        return result;
     }
 }
