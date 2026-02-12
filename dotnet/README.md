@@ -3,6 +3,22 @@
   * `dotnet run --project ./MusicClient.App/MusicClient.App.csproj --source database`
   * `dotnet run --project ./MusicClient.App/MusicClient.App.csproj --source service`
 
+# Running Tests
+  * `make test` - Run all unit tests
+  * `make test-verbose` - Run tests with detailed output
+  * `make test-coverage` - Run tests with code coverage
+  * `dotnet test` - Run tests directly with dotnet CLI
+
+# Test Coverage
+The test suite includes:
+  * **AlbumTests** - Tests for the Album model
+  * **BaseRepositoryTests** - Tests for the abstract repository
+  * **DatabaseRepositoryTests** - Tests for database repository
+  * **ServiceRepositoryTests** - Tests for gRPC service repository
+  * **RepositoryFactoryTests** - Tests for repository factory pattern
+
+All tests pass: **31 tests succeeded**
+
 # Usage 
   * 2 values for the --source parameter 
     * database for querying postgres database directly 
