@@ -27,7 +27,7 @@ func New(address string, dialOptions ...grpc.DialOption) (*Client, error) {
 
 	opts := []grpc.DialOption{
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
-		grpc.WithBlock(),
+		grpc.WithReturnConnectionError(),
 	}
 	opts = append(opts, dialOptions...)
 
