@@ -59,7 +59,7 @@ func (c *Client) GetAlbumList(ctx context.Context) ([]*service.Album, error) {
 		return nil, errors.New("client is not initialized")
 	}
 	if ctx == nil {
-		ctx = context.Background()
+		return nil, errors.New("context must not be nil")
 	}
 
 	response, err := c.svc.GetAlbumList(ctx, &service.GetAlbumsRequest{})
