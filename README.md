@@ -1,3 +1,3 @@
 # music-client
-practice Python and C# dotnet client applications for calling gRPC service and querying a Postgres database
+practice Python, C# dotnet, and Go client applications for calling a gRPC service and querying a Postgres database
 
