@@ -1,7 +1,7 @@
 import grpc
 from music.repository.abstract import AbstractRepository
-from models_pb2 import GetAlbumsRequest, GetAlbumsResponse
-from service_pb2_grpc import MusicServiceStub
+from music.proto.gen.models_pb2 import GetAlbumsRequest, GetAlbumsResponse
+from music.proto.gen.service_pb2_grpc import MusicServiceStub
 
 class GRPCRepository(AbstractRepository):
     def get_albums(self):
