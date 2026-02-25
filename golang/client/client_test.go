@@ -56,6 +56,53 @@ func TestNewReturnsErrorWhenAddressIsEmpty(t *testing.T) {
 	}
 }
 
+func TestGetAlbumListReturnsErrorForNilClient(t *testing.T) {
+	t.Parallel()
+
+	var c *Client
+	albums, err := c.GetAlbumList(context.Background())
+	if err == nil {
+		t.Fatal("expected error for nil client")
+	}
+	if err.Error() != "client is not initialized" {
+		t.Fatalf("unexpected error message: %v", err)
+	}
+	if albums != nil {
+		t.Fatal("expected nil albums for nil client")
+	}
+}
+
+func TestGetAlbumListReturnsErrorForNilContext(t *testing.T) {
+	t.Parallel()
+
+	listener := setupBufConnServer(t, &testMusicService{
+		response: &service.GetAlbumsResponse{},
+	})
+
+	dialer := func(context.Context, string) (net.Conn, error) {
+		return listener.Dial()
+	}
+
+	c, err := New("bufnet", grpc.WithContextDialer(dialer))
+	if err != nil {
+		t.Fatalf("unexpected dial error: %v", err)
+	}
+	t.Cleanup(func() {
+		_ = c.Close()
+	})
+
+	albums, err := c.GetAlbumList(nil) //nolint:staticcheck
+	if err == nil {
+		t.Fatal("expected error for nil context")
+	}
+	if err.Error() != "context must not be nil" {
+		t.Fatalf("unexpected error message: %v", err)
+	}
+	if albums != nil {
+		t.Fatal("expected nil albums for nil context")
+	}
+}
+
 func TestGetAlbumListReturnsAlbumsFromService(t *testing.T) {
 	t.Parallel()
 
