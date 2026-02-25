@@ -4,14 +4,11 @@ import (
 	"context"
 	"errors"
 	"strings"
-	"time"
 
 	service "github.com/ryan-dayrit/music-client/golang/proto/service"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
-
-const defaultDialTimeout = 5 * time.Second
 
 // Client wraps the generated protobuf service client.
 type Client struct {
@@ -27,14 +24,10 @@ func New(address string, dialOptions ...grpc.DialOption) (*Client, error) {
 
 	opts := []grpc.DialOption{
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
-		grpc.WithReturnConnectionError(),
 	}
 	opts = append(opts, dialOptions...)
 
-	ctx, cancel := context.WithTimeout(context.Background(), defaultDialTimeout)
-	defer cancel()
-
-	conn, err := grpc.DialContext(ctx, address, opts...)
+	conn, err := grpc.NewClient(address, opts...)
 	if err != nil {
 		return nil, err
 	}

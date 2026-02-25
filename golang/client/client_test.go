@@ -72,7 +72,7 @@ func TestGetAlbumListReturnsAlbumsFromService(t *testing.T) {
 		return listener.Dial()
 	}
 
-	c, err := New("bufnet", grpc.WithContextDialer(dialer))
+	c, err := New("passthrough:///bufnet", grpc.WithContextDialer(dialer))
 	if err != nil {
 		t.Fatalf("unexpected dial error: %v", err)
 	}
@@ -107,7 +107,7 @@ func TestGetAlbumListReturnsServiceError(t *testing.T) {
 		return listener.Dial()
 	}
 
-	c, err := New("bufnet", grpc.WithContextDialer(dialer))
+	c, err := New("passthrough:///bufnet", grpc.WithContextDialer(dialer))
 	if err != nil {
 		t.Fatalf("unexpected dial error: %v", err)
 	}
