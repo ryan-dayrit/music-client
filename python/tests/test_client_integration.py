@@ -3,7 +3,7 @@ from unittest.mock import MagicMock, Mock, patch
 
 import pytest
 import yaml
-from models_pb2 import Album, GetAlbumsResponse
+from music.proto.gen.models_pb2 import Album, GetAlbumsResponse
 
 from music.client.__main__ import main
 from music.client.constants import DEFAULT_POSTGRESQL_PORT, QUERY_GET_ALBUMS
