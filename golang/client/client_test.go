@@ -126,3 +126,63 @@ func TestGetAlbumListReturnsServiceError(t *testing.T) {
 		t.Fatalf("unexpected error message: %v", err)
 	}
 }
+
+func TestCloseNilClientReturnsNil(t *testing.T) {
+	t.Parallel()
+
+	var c *Client
+	if err := c.Close(); err != nil {
+		t.Fatalf("expected nil error for nil client, got: %v", err)
+	}
+}
+
+func TestCloseNilConnReturnsNil(t *testing.T) {
+	t.Parallel()
+
+	c := &Client{}
+	if err := c.Close(); err != nil {
+		t.Fatalf("expected nil error for nil conn, got: %v", err)
+	}
+}
+
+func TestCloseSucceeds(t *testing.T) {
+	t.Parallel()
+
+	listener := setupBufConnServer(t, &testMusicService{})
+
+	dialer := func(context.Context, string) (net.Conn, error) {
+		return listener.Dial()
+	}
+
+	c, err := New("bufnet", grpc.WithContextDialer(dialer))
+	if err != nil {
+		t.Fatalf("unexpected dial error: %v", err)
+	}
+
+	if err := c.Close(); err != nil {
+		t.Fatalf("expected Close() to succeed, got: %v", err)
+	}
+}
+
+func TestCloseAlreadyClosedReturnsError(t *testing.T) {
+	t.Parallel()
+
+	listener := setupBufConnServer(t, &testMusicService{})
+
+	dialer := func(context.Context, string) (net.Conn, error) {
+		return listener.Dial()
+	}
+
+	c, err := New("bufnet", grpc.WithContextDialer(dialer))
+	if err != nil {
+		t.Fatalf("unexpected dial error: %v", err)
+	}
+
+	if err := c.Close(); err != nil {
+		t.Fatalf("expected first Close() to succeed, got: %v", err)
+	}
+
+	if err := c.Close(); err == nil {
+		t.Fatal("expected error on second Close() of an already-closed connection")
+	}
+}
