@@ -9,7 +9,7 @@ test:
 	$(GO) test ./...
 
 test-integration:
-	$(GO) test ./client -run '^TestIntegration'
+	$(GO) test -tags=integration ./client -run '^TestIntegration'
 
 build:
 	$(GO) build ./...
