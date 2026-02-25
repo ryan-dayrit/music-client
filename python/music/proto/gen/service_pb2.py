@@ -22,7 +22,10 @@ _runtime_version.ValidateProtobufRuntimeVersion(
 _sym_db = _symbol_database.Default()
 
 
-import models_pb2 as models__pb2
+try:
+  from . import models_pb2 as models__pb2
+except ImportError:  # pragma: no cover - fallback for direct module imports
+  import models_pb2 as models__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rservice.proto\x12\x07service\x1a\x0cmodels.proto2W\n\x0cMusicService\x12G\n\x0cGetAlbumList\x12\x19.service.GetAlbumsRequest\x1a\x1a.service.GetAlbumsResponse\"\x00\x62\x06proto3')

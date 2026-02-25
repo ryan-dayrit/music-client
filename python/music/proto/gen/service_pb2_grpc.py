@@ -3,7 +3,10 @@
 import grpc
 import warnings
 
-import models_pb2 as models__pb2
+try:
+    from . import models_pb2 as models__pb2
+except ImportError:  # pragma: no cover - fallback for direct module imports
+    import models_pb2 as models__pb2
 
 GRPC_GENERATED_VERSION = '1.76.0'
 GRPC_VERSION = grpc.__version__
