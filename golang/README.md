@@ -4,7 +4,7 @@ Go client implementation for the shared protobuf contracts in `../proto`.
 
 ## Prerequisites
 
-- Go 1.22+
+- Go 1.24+
 - `protoc` in `PATH` (only required when regenerating stubs)
 
 ## Install
