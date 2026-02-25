@@ -46,5 +46,5 @@ go run ./cmd/music-client --host localhost --port 50051
 
 ## Notes
 
-- The test suite uses `bufconn` and does not require a live gRPC server.
+- Unit tests use `bufconn`; integration tests use an in-process gRPC server on an ephemeral local TCP port.
 - Running the binary requires the external `music-service` gRPC service to be reachable.
