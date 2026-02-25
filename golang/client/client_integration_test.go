@@ -23,8 +23,18 @@ type integrationMusicService struct {
 
 func (s *integrationMusicService) GetAlbumList(ctx context.Context, _ *service.GetAlbumsRequest) (*service.GetAlbumsResponse, error) {
 	if s.delay > 0 {
+		timer := time.NewTimer(s.delay)
+		defer func() {
+			if !timer.Stop() {
+				select {
+				case <-timer.C:
+				default:
+				}
+			}
+		}()
+
 		select {
-		case <-time.After(s.delay):
+		case <-timer.C:
 		case <-ctx.Done():
 			return nil, status.Error(codes.DeadlineExceeded, "request deadline exceeded")
 		}
