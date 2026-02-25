@@ -3,10 +3,13 @@ MODULE = github.com/ryan-dayrit/music-client/golang
 PROTO_DIR = ../proto
 PROTO_FILES = $(PROTO_DIR)/models.proto $(PROTO_DIR)/service.proto
 
-.PHONY: test build run gen tools
+.PHONY: test test-integration build run gen tools
 
 test:
 	$(GO) test ./...
+
+test-integration:
+	$(GO) test ./client -run '^TestIntegration'
 
 build:
 	$(GO) build ./...
